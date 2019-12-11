@@ -1,0 +1,500 @@
+
+<div *ngIf="dataStructInp">
+    docidx  {{ dataStructInp.docidx }} templateIdx {{ dataStructInp.templateidx }}
+</div>
+<form [formGroup] = "form">
+<div class="form-group lightBord" *ngIf = "dataStructInp ">
+  <div style="width:40%"  >
+
+        <mat-label style='color:blue' >Template:  </mat-label>
+        <mat-form-field class="example-full-width, zero" style="width:430px !important" >
+          <textarea [value]=dataStructInp.templatename  matInput [readonly] = 'true'  matInput matTextareaAutosize  > </textarea>
+        </mat-form-field>
+  </div>  
+
+  <div *ngIf = "dataStructInp">
+    <table *ngIf = "dataStructInp.structures" >
+      <tr>
+        <td  style="color:blue; width:100px; "> Physics Please Contour:</td>
+        <ng-container *ngIf = "dataStructInp.structures.contour1.length > 2 ">
+          <td *ngFor = "let item of dataStructInp.structures | keyvalue  let i = index" > 
+          
+                <mat-form-field class="example-full-width, zero" style="width:130px !important" >
+                <textarea  value = "{{ item.value }}" name="{{ item.key }}" matInput cols="100" matTextareaAutosize 
+                    (change)= "editGen($event, i, 'dyndataStructures', 'docidx', dataStructInp.docidx)" ></textarea>  
+              </mat-form-field>
+        
+          </td>
+        </ng-container>    
+        <td  style='width:200px;'>
+            <mat-form-field class="example-full-width, zero" style="width:130px !important"  >
+                <mat-label  style='color:blue'>Add Contour:</mat-label>
+                <textarea  name='addControl' formControlName='AddContour' matInput id='addContour'  cols="200"  matTextareaAutosize  
+                (change)= "addContour($event, i, 'dyndataStructures', 'docidx', dataStructInp.docidx, 'addContour') " ></textarea>
+              </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+      <div style='width:1000px; '>
+              <mat-form-field class="example-full-width, zero" style="width:1000px !important"  >
+            <mat-label  style='color:blue'>Contour Consideration:</mat-label>
+            <textarea  name='ContourConsideration'  matInput id='ContourConsideration'  cols="400"    [value] = "dataStructInp.ContourConsideration"
+            (change)= "editGen($event, i, 'dyndataStructures', 'docidx', dataStructInp.docidx)" style="font-size:smaller"></textarea>
+          </mat-form-field>
+  </div>   
+  
+<!--           Plan Parameters        -->
+    <table  style="table-layout:fixed;" >
+    <tr>  
+          <td  style="color:blue; width:100px; font-size:larger;"> Plan Parameters:</td>
+          <td *ngIf = "dataStructInp.bigdata">
+              <mat-form-field class="example-full-width, zero"  style="width:100px !important"  >
+                  <mat-label style='color:blue' >Complexity:</mat-label>
+                  <mat-select  [(value)]="dataStructInp.bigdata.complexity" 
+                  (selectionChange) = "editGen($event, i, 'dyndataBigData', 'docidx', dataStructInp.docidx, 'complexity')"
+                  >
+                    <mat-option value="High">High</mat-option>
+                    <mat-option value="Moderate">Moderate</mat-option>
+                    <mat-option value="Low">Low</mat-option>
+                  </mat-select>
+              </mat-form-field>
+          </td>
+    
+          <td *ngIf = "dataStructInp.bigdata"   style="width:100px; ">  
+              <mat-form-field class="example-full-width, zero"  style="width:140px;" >
+                      <mat-label style='color:blue' >Review Mode:</mat-label>
+                      <mat-select  [(value)]="dataStructInp.bigdata.reviewMode"
+                      (selectionChange) = "editGen($event, i, 'dyndataBigData', 'docidx', dataStructInp.docidx, 'reviewMode')"
+                         >
+                          <mat-option value= "Remote Review">Remote Review </mat-option>
+                          <mat-option value= "Screen Grab">Screen Grab </mat-option>
+                          <mat-option value= "Video Plan Review">Video Plan Review </mat-option>
+                          <mat-option value= "One-on-one Review ">One-on-one Review </mat-option>
+                          <mat-option value= "Proton Round Review">Proton Round Review </mat-option>
+                          <mat-option value= "Plan pushed to Mim Vista">Plan pushed to Mim Vista </mat-option>
+                      </mat-select>
+                </mat-form-field>
+          </td>
+            
+   </tr></table>
+  </div>
+
+  <br>
+    <!--         the Plans class  loop     -->
+<div *ngIf = "dataStructInp  && dataStructInp.plans" >
+  <div *ngFor="let item of dataStructInp.plans | keyvalue" style="padding-top:20px;"> 
+    <div class="form-group lightBord"  *ngIf = "item.value.dose">
+      <div >
+        <div class='container'> 
+          <div class = "oneLeft" >
+            {{ item.value.name }} --  {{ item.value.idx }}
+            <table  style="width:100%;"   >
+              <tr>
+
+                <td class="small">
+                    <mat-form-field class="example-full-width, one"  >
+                      <mat-label  style='color:blue'>Site.</mat-label>
+                      <div style="width:200px">
+                        <input matInput id='dose'  name="Description"  autocomplete="off" 
+                        [value]= item.value.Description     (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)" >    
+                      </div>  
+                    </mat-form-field>
+                </td> 
+                <td class="one"> 
+                  <mat-form-field class="example-full-width, one"  style="width:60px !important" >
+                      <mat-label  style='color:blue'>Dose.</mat-label>
+                      <input matInput id='dose' formControlName="Dose" name="dose" autocomplete="off"
+                      [value]= item.value.dose  (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)"  >    
+                      <span matSuffix>cGy</span> 
+                  </mat-form-field>    
+                </td> 
+                <td class="one" >
+                    <mat-form-field  class="example-full-width, one" style="width:60px !important"  >
+                      <mat-label style='color:blue'>FxDose </mat-label>
+                          <input matInput  formControlName="fxDose" name="fxDose"  size=10 (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)"
+                          [value]= item.value.fxDose >                   
+                          <span matSuffix>cGy</span>
+                        </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="example-full-width, one" style="width:60px !important" >
+                        <mat-label style='color:blue'>Num. Fx.</mat-label>
+                          <input matInput  formControlName="numFx" name='numFx'  (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)"
+                          [value]= item.value.numFx >  
+                        </mat-form-field>
+                </td>     
+
+                <td style="width:100px; ">  
+                    <mat-form-field class="example-full-width, one" style="width:100px !important" >
+                        <mat-label  style='color:blue'>Beam Type .</mat-label>
+                        <mat-select [(value)] = "item.value.beamTypeIdx" 
+                        (selectionChange) = "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx, 'beamTypeIdx')">
+                          <mat-optgroup>Photons
+                            <mat-option value="Photons">Photons</mat-option>
+                            <mat-option value="6Mv">6Mv</mat-option>
+                            <mat-option value="10Mv">10Mv</mat-option>
+                            <mat-option value="15Mv">15Mv</mat-option>
+                            <mat-option value="6_&_10Mv">6_&_10Mv</mat-option>
+                            <mat-option value="6_&_15Mv">6_&_15v</mat-option>
+                          </mat-optgroup>
+                          <mat-optgroup>Protons
+                            <mat-option value="Proton_PBS">Proton_PBS</mat-option>
+                            <mat-option value="Proton_DS">Proton_DS</mat-option>
+                            <mat-option value="Proton_Star">Proton_Star</mat-option>
+                            <mat-option value="Proton_Eye">Proton_Eye</mat-option>
+                          </mat-optgroup>  
+                            <mat-option value="Electrons">Electrons</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+              </tr>
+            </table>
+            <div >
+              <table style="width:60%;"  >
+                  <tr>
+                    <td class="small" >  
+                      <mat-form-field class="example-full-width">
+                          <mat-label style='color:blue'>Expansions Based-On:</mat-label>
+                          <input type="text"  aria-label="Number" matInput [matAutocomplete]="auto" name='basedOnText' [(value)]= "item.value.basedOnText" 
+                          (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx, 'setExpBasedOn'); "   > 
+                          <mat-autocomplete #auto="matAutocomplete" >   
+                              <mat-option *ngFor="let option of basedOn" [value]="option" name='basedOnText' (click) = "editGen($event, 'basedOnText', 'dyndataPlans', 'idx', item.value.idx, 'setExpBasedOn')"  >
+                                  {{option}}
+                                </mat-option>        
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    </td>     
+                    <td *ngIf = "item.value.basedOnText.length > 2"> 
+                      <mat-form-field class="example-full-width" style="width:100px !important" >
+                        <mat-label style='color:blue'>Expansion:</mat-label>
+                        <input type="text"  aria-label="Number" matInput formControlName="symExp" name='symExpCM' [value]= "item.value.symExpCM" 
+                         (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)"  >
+                        <span matSuffix>mm.</span>
+                      </mat-form-field>
+                    </td>  
+
+                    <td *ngIf = "item.value.basedOnText.length > 2" >
+                        <mat-form-field class="example-full-width, zero"  style="width:100px !important"  >
+                            <mat-label style='color:blue' >Except</mat-label>
+                            <mat-select  [(value)]="item.value.expName" 
+                            (selectionChange) = "editGen($event, i, 'dyndataPlans', 'idx', item.value.idx, 'expName')"
+                            >
+                            <mat-option  value="None"></mat-option>
+                            <mat-option  value="Ant">Ant</mat-option>
+                            <mat-option  value="Post">Post</mat-option>
+                           <mat-option  value="Ant&Post">Ant&Post</mat-option>
+                            <mat-option  value="Sup.">Sup.</mat-option>
+                            <mat-option  value="Inf.">Inf.</mat-option>
+                            <mat-option  value="Sup&Inf.">Sup&Inf.</mat-option>
+                            <mat-option  value="Right">Right</mat-option>
+                           <mat-option  value="Left">Left</mat-option>  
+                            <mat-option  value="Right&Left">Right & Left</mat-option>    
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td *ngIf = "item.value.basedOnText.length > 2 && item.value.expName != 'None'" >   
+                          <mat-form-field class="example-full-width" style="width:100px !important" >
+                              <mat-label style='color:blue'> Asym.  Expansion:</mat-label>
+                              <input type="text" value='' aria-label="Number" matInput [value] = "item.value.expMM" name='expMM'
+                              (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx)"  >
+                              <span matSuffix>mm.</span>
+                          </mat-form-field>
+                    </td>
+                    <td *ngIf = "item.value.expName == 'None'"> </td>
+                  </tr>
+              </table> 
+            </div>  
+          </div>  
+          <mat-divider></mat-divider>  
+          <hr/>
+
+          <div class='twoLeft'> <!--      Coverage Guidelines      -->             
+            <table style=" width:100%; ">
+              <tr>
+                  <td rowspan = 'item.value.covG.length'  style="color:blue;text-align:right; font-size:18px">  
+                      Coverage Guidelines 
+                </td> 
+                <th>Structure</th><th>Volume</th><th>Dose</th></tr>  
+              <tr *ngFor = "let st of item.value.covG | keyvalue; let i = index">
+                <td>   </td>
+                <div *ngIf = "st.value.struct && st.value.struct.length > 2 || i < numCovGuidelines ">
+                  <td   > 
+                          <mat-select  [(value)]="st.value.struct" name=st.value.name
+                          (selectionChange) = "editGen($event, i, 'dyndataPlans', 'idx', item.value.idx, st.value.name)"
+                          >
+\
+                            <mat-option value="GTV">GTV</mat-option>
+                            <mat-option value="CTV">CTV</mat-option>
+                            <mat-option value="PTV">PTV</mat-option>
+                            <mat-option value="ITV">ITV</mat-option>
+                          </mat-select>
+                  </td>
+              
+                  <td class="tiny" ><input type="text" size="10" [id]="i" [name]=st.value.volName [(value)]= "st.value.v" 
+                    (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx, st.value.doseName)"  autocomplete="off"></td>
+                  <td ><input type="text" size="10" [name]=st.value.doseName  [(value)]= "st.value.d" 
+                    (change)= "editGen($event, 1, 'dyndataPlans', 'idx', item.value.idx, st.value.volName)"  autocomplete="off" ></td>
+                  <td *ngIf = "i == 0"><button mat-raised-button (click) = "addGuideline(st.value.planIdx)" >Add Guideline </button></td>
+              </div>  
+              </tr>
+            </table>
+          </div>  
+        </div>                              <!--    close of 'container' div   -->
+      </div>  
+
+        <!--         Added Targets         -->
+
+      <div *ngFor = "let targ of item.value.addTarg | keyvalue"   style="padding-top:30px;">  
+<hr>
+        <div style='width:100%'>        {{ targ.value.Description }}  {{ targ.key }}
+            <button mat-raised-button (click) = "addGuideline(st.value.planIdx)" >Delete this Target </button>
+        </div>  
+        <div class='container'>  
+          <div class='oneLeft'>         
+            <table  style="table-layout:fixed;">
+              <tr>
+                <td class="small">
+                    <mat-form-field class="example-full-width, zero"  >
+                      <mat-label  style='color:blue'>Site. {{ targ.key }}  </mat-label>
+                      <div style="width:200px">
+                      <input matInput id='dose'  name="{{ item.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item.key,'','')" autocomplete="off" 
+                      [value]= targ.value.name >    
+                      </div>  
+                    </mat-form-field>
+                </td> 
+                <td>
+                <mat-form-field class="example-full-width, zero"  style="width:60px !important" >
+                    <mat-label  style='color:blue'>Dose.</mat-label>
+                    <input matInput id='dose' formControlName="Dose" name="{{ item.key }}" (change) = "editVal($event, 'dose','dyndataPlans', 'idx', item.key,'','')" autocomplete="off"
+                    [value]= targ.value.dose >    
+                    <span matSuffix>cGy</span> 
+                </mat-form-field>    
+              </td> 
+              <td  >
+                  <mat-form-field  class="example-full-width, zero" style="width:60px !important"  >
+                    <mat-label style='color:blue'>FxDose </mat-label>
+                        <input matInput value=""  formControlName="fxDose" name="{{ item.key }}" (change) = "editVal($event, 'fxDose','dyndataPlans', 'idx', item.key,'','')"  size=10
+                        [value]= targ.value.fxDose >                   
+                        <span matSuffix>cGy</span>
+                      </mat-form-field>
+              </td>
+    
+              <td>
+                  <mat-form-field class="example-full-width, zero" style="width:60px !important" >
+                      <mat-label style='color:blue'>Num. Fx.</mat-label>
+                        <input matInput  formControlName="numFx" (change) = "editVal($event, 'numFx','dyndataPlans', 'idx', item.key,'','')"  
+                        [value]= targ.value.numFx >  
+                      </mat-form-field>
+              </td>     
+              <td style="width:100px; ">  
+                  <mat-form-field class="example-full-width, zero" style="width:60px !important" >
+                      <mat-label  style='color:blue'>Beam Type .</mat-label>
+                      <mat-select [(value)] = "targ.value.beamTypeIdx" >
+                        <mat-optgroup>Photons
+                          <mat-option value="Photons">Photons</mat-option>
+                          <mat-option value="6Mv">6Mv</mat-option>
+                          <mat-option value="10Mv">10Mv</mat-option>
+                          <mat-option value="15Mv">15Mv</mat-option>
+                          <mat-option value="6_&_10Mv">6_&_10Mv</mat-option>
+                          <mat-option value="6_&_15Mv">6_&_15v</mat-option>
+                        </mat-optgroup>
+                        <mat-optgroup>Protons
+                          <mat-option value="Proton_PBS">Proton_PBS</mat-option>
+                          <mat-option value="Proton_DS">Proton_DS</mat-option>
+                          <mat-option value="Proton_Star">Proton_Star</mat-option>
+                          <mat-option value="Proton_Eye">Proton_Eye</mat-option>
+                        </mat-optgroup>  
+                          <mat-option value="Electrons">Electrons</mat-option>
+    
+                      </mat-select>
+                  </mat-form-field>
+              </td>
+            </tr>
+            </table>  
+            <table style=" width:100%; "  >     <!-- Expansions Table-->     
+              <tr>
+                <td>
+                  <mat-form-field class="example-full-width">
+                      <mat-label style='color:blue'>Expansions Based-On:</mat-label>
+                      <input type="text"  aria-label="Number" matInput [matAutocomplete]="auto"  [value]="targ.value.basedOn" 
+                           (change) = "editTargExpBasedOnText($event, item.key, targ.key)"  >
+                      <mat-autocomplete #auto="matAutocomplete">   
+                          <mat-option *ngFor="let option of basedOn" [value]="option"     (click) = "editTargExpBasedOn($event,item.key, targ.key)" >
+                              {{option}}
+                            </mat-option>        
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </td>
+                <td *ngIf = "getTargBasedOn(item.key, targ.key)">
+                  <mat-form-field class="example-full-width" style="width:100px !important" >
+                    <mat-label style='color:blue'>Expansion:</mat-label>
+                    <input type="text"  aria-label="Number" matInput formControlName="symExp" [value]= "targ.value.symExpCM"
+                    (change) = "editTargSymExpMM($event, item.key, targ.key)" >
+                    <span matSuffix>mm.</span>
+                  </mat-form-field>
+                </td>  
+                <td *ngIf = "getTargBasedOn(item.key, targ.key)">     
+                    <mat-form-field class="example-full-width" style="width:100px !important" >
+                        <mat-label  style='color:blue'>Exception Dir: .</mat-label>
+                        <mat-select [(value)]="targ.value.expName"  >    
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);"  value="Ant.">Ant.</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Post">Post</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Ant.Post">Ant. & Post</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Sup.">Sup.</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Inf.">Inf.</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Sup.Inf.">Sup. & Inf.</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Right">Right</mat-option>
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Left">Left</mat-option>  
+                            <mat-option (click)= "editTargAsymExp($event, item.key, targ.key);" value="Right&Left">Right & Left</mat-option>           
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td *ngIf = "getTargExpName(item.key, targ.key)">     
+                      <mat-form-field class="example-full-width" style="width:100px !important" >
+                          <mat-label style='color:blue'> Asym.  Expansion:</mat-label>
+                          <input type="text" value='' aria-label="Number" matInput [value] = "targ.value.expMM" >
+                          <span matSuffix>mm.</span>
+                        </mat-form-field>
+                </td>  
+                <td *ngIf = "!getTargExpName(item.key, targ.key)">  </td>
+          </table>   
+          </div>  
+
+          <div class='twoLeft'>                        
+              <table style=" width:100%; " >
+                    <tr>
+                        <td rowspan = 'item.value.covG.length'  style="color:blue; text-align:right; font-size:18px">  
+                            Coverage Guidelines 
+                        </td> 
+                        <th>Structure</th><th>Volume</th><th>Dose</th>
+                    </tr>
+                    <tr *ngFor = "let st of targ.value.covG | keyvalue; let i = index" >
+                      <td></td>
+                      <td  > 
+                          <mat-select  [(value)]="st.value.struct" name=st.value.name
+                          (selectionChange) = "editGen($event, i, 'dyndataPlans', 'idx', targ.value.idx, st.value.name)"
+                          >
+                            <mat-option value="GTV">GTV</mat-option>
+                            <mat-option value="CTV">CTV</mat-option>
+                            <mat-option value="PTV">PTV</mat-option>
+                            <mat-option value="ITV">ITV</mat-option>
+                          </mat-select>
+                      </td>
+                      <td class="tiny" ><input type="text" size="10" [id]="i" name="v" [(value)]= "st.value.v"  (change) = "editCovGuideline($event)" autocomplete="off"></td>
+                      <td ><input type="text" size="10"  [(value)]= "st.value.d" (change) = "editCovGuideline($event)" autocomplete="off" ></td>
+                      <td *ngIf = "i == 0"><button mat-raised-button (click) = "addGuideline(st.value.planIdx)" >Add Guideline </button></td>
+                    </tr>
+              </table>
+          </div>  
+      
+        </div>   
+                    
+                                                                                            <!--   Expansions table -->
+        <div class='container'>  
+          <div class='oneLeft'>                    
+    
+          </div>
+      
+        </div>                                                  <!--   close of Expansions Table.    -->     
+                  
+                                                                              <!--   Coverage Guidelines Table.    -->
+          
+        
+      </div>
+  </div>
+</div>
+
+<h4> Dose Guidelines </h4>
+<div class="form-group lightBord"  >
+  <div *ngIf = "dataStructInp.OAR">
+      <table class='OAR' ><tr style='color:blue;'>
+        <tr>.
+          <th class = 'small'>Structure</th> <th class = 'small'>Vol</th> <th class = 'small'>Dose</th><th class = 'small'>Max</th> <th class = 'small'>Priority</th>
+          <th class = 'small'>Delete</th>
+        </tr>
+        <tr *ngFor="let item2 of dataStructInp.OAR | keyvalue  let i = index">
+            <td class="small">        
+                <mat-form-field class="example-full-width"  >
+              
+                  <div style="width:200px"> 
+                  <input matInput id='dose'  name="{{ item2.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item2.key,'','')" autocomplete="off" 
+                  [value]= item2.value.OARname >    
+                  </div>  
+                </mat-form-field>
+            </td> 
+            <td class="small" >
+                <mat-form-field class="example-full-width"  >
+            
+                  <div style="width:200px">
+                  <input matInput id='dose'  name="{{ item2.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item2.key,'','')" autocomplete="off" 
+                  [value]= item2.value.dvhVol >    
+                  </div>  
+                </mat-form-field>
+            </td> 
+            
+            <td class="small"   >
+                <mat-form-field class="example-full-width"  >     
+                  <div style="width:200px">
+                  <input matInput id='dose'  name="{{ item2.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item2.key,'','')" autocomplete="off" 
+                  [value]= item2.value.dvhDose >    
+                  </div>  
+                </mat-form-field>
+            </td> 
+            <ng-template #notShow>
+                <td class="small" ></td> 
+            </ng-template>
+            <td class="small" >
+                <mat-form-field class="example-full-width"  >
+                  <div style="width:200px">
+                  <input matInput id='dose'  name="{{ item2.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item2.key,'','')" autocomplete="off" 
+                  [value]= item2.value.max
+                    >    
+                  </div>  
+                </mat-form-field>
+            </td> 
+            <td class="small" *ngIf="item2.value.mean ">
+                <mat-form-field class="example-full-width"  >
+                  <div style="width:200px">
+                  <input matInput id='dose'  name="{{ item2.key }}" (change) = "editVal($event, 'Description','dyndataPlans', 'idx', item2.key,'','')" autocomplete="off" 
+                  [value]= item2.value.mean
+                    >    
+                  </div>  
+                </mat-form-field>
+            </td> 
+  
+            <td>
+                <mat-form-field class="example-full-width, zero"  style="width:100px !important"  >
+
+                    <mat-select  [(value)]=item2.value.priority >
+                      <mat-option value="High">High</mat-option>
+                      <mat-option value="Moderate">Moderate</mat-option>
+                      <mat-option value="Low">Low</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </td>
+            <td><button class="buttonFL" (click) = "deleteOAR(item2.value.idx)"></button></td>
+            <td *ngIf = "i == getOARnumber() - 1" >
+                <button mat-raised-button (click) = "addOAR(item2.value.planIdx)" >Add Guideline </button>
+            </td>
+      
+
+
+        </tr>
+      </table>    
+ 
+      </div>
+  </div>
+</div> 
+
+</form>
+      
+
+  
+
+
+
+ 

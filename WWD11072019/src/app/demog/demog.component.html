@@ -1,0 +1,65 @@
+
+
+
+<form [formGroup] = "form">
+  <div class="form-group" *ngIf="demogParams" >
+
+      <table  style="table-layout:fixed;"><tr>
+        <td class='small'>
+        <mat-form-field class='small'  >
+          <mat-label  style='color:blue'>Unit Number</mat-label>
+          <input size=10  matInput [readonly] = 'true' name='UnitNumber' [value]=demogParams.demog.UnitNumber>    
+  
+        </mat-form-field>
+      </td> 
+      <td class='small'>
+        <mat-form-field class="small"  >
+          <mat-label  style='color:blue'>Last Name</mat-label>
+     
+            <input size=10  matInput [readonly] = 'true' name='LastName' [value]=demogParams.demog.LastName> 
+    
+        </mat-form-field>
+      </td> 
+      <td class='med'>
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>First Name</mat-label>
+            <input size=30 formControlName="FirstName" matInput [readonly] = 'true' name='FirstName' [value]=demogParams.demog.FirstName> 
+        </mat-form-field>
+      </td> 
+      <td class='med' >
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>Start Date</mat-label>
+            <input size=30 formControlName="StartDate" matInput [readonly] = 'true'  [value]=demogParams.demog.StartDate> 
+        </mat-form-field>
+      </td> 
+      <td class='small'>
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>Linac</mat-label>
+          <input size=30 formControlName="linac" matInput [readonly] = 'true'  [value]=demogParams.demog.linac> 
+        </mat-form-field>
+      </td> 
+      <td class='small' >
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>Modality</mat-label>
+            <input size=30 formControlName="Modality" matInput [readonly] = 'true' [value]=demogParams.demog.Modality > 
+        </mat-form-field>
+      </td> 
+      <td class='small' >
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>Physician</mat-label>
+            <input size=30 formControlName="Physician" matInput [readonly] = 'true'  [value]=demogParams.demog.Physician> 
+        </mat-form-field>
+      </td> 
+      <td class='small' >
+        <mat-form-field class="example-full-width"  >
+          <mat-label  style='color:blue'>Physicist</mat-label>
+            <input size=30 formControlName="Dosimetrist" matInput [readonly] = 'true'  [value]=demogParams.demog.Dosimetrist> 
+        </mat-form-field>
+      </td> 
+
+     
+
+  </tr>
+  </table>
+  </div>
+ </form>

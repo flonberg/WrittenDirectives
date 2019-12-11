@@ -1,0 +1,36 @@
+
+<div>
+    <div class="nav">
+        <ul>
+            <li *ngFor="let item of menuStruct | keyvalue">
+                {{ item.key }}  
+                <ul class="/en/menu5/menu5-1/">
+                    <li  *ngFor = "let item2 of item.value | keyvalue:mySortingFunction" >
+                        <a *ngIf = "isString(item2.value)"
+                            routerLink=""
+                            [queryParams]="{ templateIdx: item2.key, templateName: item2.value, planIdx: planIdx }"
+                            >
+                            {{ item2.value }} 
+                        </a>
+                        <a *ngIf = "!isString(item2.value)">
+                            {{ item2.key }} 
+                        </a>
+                            <ul *ngIf = "!isString(item2.value)"  class="/en/menu5/menu5-1/">
+                                <li *ngFor = "let item3 of item2.value | keyvalue:mySortingFunction"  >
+                                    <a   [routerLink] = ""
+                                    [queryParams]="{ templateIdx: item3.key, templateName: item3.value, planIdx: planIdx  }"  
+                                    >
+                                    {{ item3.value }} </a>
+                                </li>
+                            </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<app-demog [demogParams] = dataStructREST ></app-demog>
+<app-dose-fx  [dataStructInp] = dataStructREST></app-dose-fx>
+
+
+

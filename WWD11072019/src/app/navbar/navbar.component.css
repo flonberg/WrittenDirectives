@@ -1,0 +1,83 @@
+.mat-menu-content {
+    background-color: 'red' !important;
+}
+.divLeft {
+    float: left;
+    background-color: rgb(240, 230, 230)
+  }
+  .nav ul {
+    list-style: none;
+    background-color: rgb(212, 207, 207);
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+.nav li {
+    font-family: 'Oswald', sans-serif;
+
+    line-height: 20px;
+    text-align: left;
+    position: relative; /* added for it's absolute child */
+}
+.nav a {
+    text-decoration: none;
+    color: rgb(24, 17, 17);
+    display: block;
+    padding-left: 15px;
+    border-bottom: 1px solid #888;
+    transition: .3s background-color;
+}
+.nav a:hover {
+    background-color: #2d6d6d;
+}
+.nav a.active {
+    background-color: #aaa;
+    color: #444;
+    cursor: default;
+}
+/* Sub Menus */
+.nav li li {
+    font-size: 1.0 em;
+}
+/******************************************* Style menu for larger screens Using 650px (130px each * 5 items), but ems or other values could be used depending on other factors ********************************************/
+@media screen and (min-width: 650px) {
+    .nav li {
+        width: auto;
+        min-width:340px;
+        border-bottom: none;
+        height: 3   0px;
+        line-height: 30px;
+        font-size: 1.0em;
+        display: inline-block;
+        margin-right: -4px;
+        z-index: 99;
+   }
+    .nav a {
+        border-bottom: none;
+   }
+    .nav > ul > li {
+        text-align: center;
+   }
+    .nav > ul > li > a {
+        padding-left: -10;
+   }
+   /* Sub Menus */
+    .nav li ul {
+        position: absolute;
+        display: none;
+        width: inherit;
+   }
+    .nav > ul > li:hover > ul {
+        display: block;
+   }
+    .nav li > ul > li:hover ul { /* change hover to nested li */
+        display: block; 
+   }
+    .nav li > ul > li ul { /* change position to it's nested parent */
+        top: 0;
+        right: -95%;
+   }
+    .nav li ul li {
+        display: block;
+   }
+}

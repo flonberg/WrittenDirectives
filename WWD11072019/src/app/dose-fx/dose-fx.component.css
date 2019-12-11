@@ -1,0 +1,208 @@
+.OAR tr {
+  line-height:28px;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 430px;
+    width: 100%;
+    font-size: 10pt;
+  }
+mat-divider{
+  color:rgb(124, 54, 54);
+}
+.shadow {
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  border-radius: 5px;
+}
+.lightBord {
+  background-color:rgb(247, 246, 246);
+	border-color:#e0e0eb;
+	border-style:solid;
+	border-radius:10px;
+  width:100%;
+  min-height: 170px;
+	  box-shadow:  -1px 1px #a3a3c2,
+         -2px 2px #a3a3c2,
+         -3px 3px #a3a3c2,
+         -4px 4px #a3a3c2,
+         -5px 5px #a3a3c2;
+}
+.zero {
+  background-color:rgb(247, 246, 246);
+}
+.one {
+  background-color:rgb(249, 249, 249);
+}
+.white {
+  background-color: white;
+}
+button {
+  color: black;
+  border: 1px solid #9fa3a7;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+      cursor: pointer;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #EEDDCC;
+  box-shadow:
+      0 1px 0 rgba(0,0,0,.08),
+      inset 0 1px 2px rgba(255,255,255,.67),
+      inset 0 -1px 0 rgba(0,0,0,.14);
+  background-image: -moz-linear-gradient(90deg, #a3a9ad 0%, #c5c9cd 100%);
+  background-image: -o-linear-gradient(90deg, #a3a9ad 0%, #c5c9cd 100%);
+  background-image: -webkit-linear-gradient(90deg, #a3a9ad 0%, #c5c9cd 100%);
+  background-image: linear-gradient(90deg, #859eaf 0%, #c5c9cd 100%);
+}
+
+  .mat-form-field { 
+      width: auto !important;
+  }
+  .mat-select-value {
+      max-width: 100%;
+      width: auto;
+  }  
+
+table {
+  table-layout:fixed;
+  font-size: 13px; 
+
+}
+.container {
+  width: 100%;
+
+  margin: auto;
+  padding: 10px;
+}
+.oneLeft {
+  width: 55%;
+
+  float: left;
+}
+.twoLeft {
+  margin-left: 56%;
+  width: 30%;
+}
+.threeLeft {
+  margin-left:78%;
+}
+
+.onet {
+  width: 15%;
+  height: 200px;
+  background: red;
+  float: left;
+}
+.twot {
+  margin-left: 15%;
+  height: 200px;
+  background: black;
+}
+
+
+table.covG {
+  table-layout:fixed;
+  width:650px;
+  font-size:14px;
+}
+input {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid rgb(48, 47, 47);
+  outline: none;
+}
+button {
+  cursor:pointer;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid rgb(110, 89, 89);
+  margin: 1em 0;
+  padding: 0;
+}
+
+  .example-full-width {
+    width: 100%;
+ 
+    font-size: 10pt;
+    text-align: top;
+  }
+  .example-half-width {
+    width: 30px;
+  
+    font-size: 10pt;
+    text-align: top;
+  }
+  .alignX {
+      text-align: bottom;
+      height:20px;
+      font-size:8;
+  }
+  td {
+    padding-right:50px;
+    width:90px;
+  }
+  th {
+    text-align:left;
+  }
+
+  .med {
+    width:200px;
+    height:20px;
+
+  }
+  .small {
+    width:100px;
+    text-align:left;
+    
+  }
+  td.tiny {
+    text-align:left;
+    width:70px;
+  }
+  .label {
+    font-size:small;
+    color:blue;
+ 
+  }
+  .singleRow {
+    height:20px;
+
+  }
+
+  textarea {
+    overflow-y: scroll;
+
+   
+}
+.mat-select-trigger { min-width: 50px; }
+.mat-input-wrapper{
+  width:100px !important;
+}
+  labelClass {
+      color:blue;
+  }
+
+  mat-grid-tile {
+    background: lightblue;
+  }
+
+  .input-headline {
+    font-size: 8px;
+    line-height: 12px;
+    font-weight: 100;
+}
+.my-select-panel-class {
+  width:20px;
+  max-width:20px;
+  font-size: 10px;
+}
